@@ -1,6 +1,5 @@
-
 <?php
-//turn on debugging messages
+
 ini_set('display_errors', 'On');
 error_reporting(E_ALL);
 
@@ -51,30 +50,12 @@ class collection {
 
     static public function findAll() {
 
-      //$calories = '6';
-/*$colour = 'gre';
-$sth = $dbh->prepare('SELECT name, colour, calories
-    FROM fruit
-    WHERE calories < :calories AND colour LIKE :colour');
-$sth->bindParam(':calories', $calories, PDO::PARAM_INT);
-$sth->bindValue(':colour', "%{$colour}%");
-$sth->execute();*/
-
-
-
         $db = dbConn::getConnection();
         $tableName = get_called_class();
-       // $sql1 ='WHERE id '< $calories;
         $sql ='SELECT * FROM accounts where id < 6';
         
-
-       // $sql2 = implode(, $where)
-       // $sql = 'SELECT * FROM' . $tableName;
         $statement = $db->prepare($sql);
         $statement->execute();
-        
-      
-//$conn->close();  
 
         $class = static::$modelName;
         $statement->setFetchMode(PDO::FETCH_CLASS, $class);
@@ -85,11 +66,11 @@ $sth->execute();*/
 }
 
 class accounts extends collection {
+    
     protected static $modelName = 'account';
 }
-//class todos extends collection {
-  //  protected static $modelName = 'todo';
-//}
+
+
 class account {}
 //class todo {}
 
@@ -126,9 +107,3 @@ $html = '<table border = 1><tbody>';
     //return $html;
 
 //-----------------------
-
-
-
-
-//$records = todos::findAll();
-//print_r($records);
