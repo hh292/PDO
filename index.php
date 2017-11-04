@@ -21,7 +21,7 @@ class dbConn{
             // assign PDO object to db variable
             self::$db = new PDO( 'mysql:host=' . CONNECTION .';dbname=' . DATABASE, USERNAME, PASSWORD );
             self::$db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
-            echo "Database Connection Successfully Done On  ".CONNECTION.  "Server";
+            echo "Database Connection Successfully Done On  ".CONNECTION.  "Server <br>";
         }
         catch (PDOException $error) {
             //Output error - would normally log this to error file rather than output to user.
@@ -51,17 +51,23 @@ class collection {
     static public function findAll() {
 
         $db = dbConn::getConnection();
-        $tableName = get_called_class();
-        $sql ='SELECT * FROM accounts where id < 6';
-        
+       // $tableName = get_called_class();
+               
+        //$sql = ' SELECT * FROM' .$tableName;
+        //print_r($tableName);
+
+        //$table = $tableName;
+
+        $sql = 'SELECT * FROM accounts Where id < 6';
         $statement = $db->prepare($sql);
         $statement->execute();
 
-        $class = static::$modelName;
-        $statement->setFetchMode(PDO::FETCH_CLASS, $class);
+   //     $class = static::$modelName;
+     //  $statement->setFetchMode(PDO::FETCH_CLASS, $class);
          
         $recordsSet =  $statement->fetchAll();
-        return $recordsSet;
+        print_r($recordsSet);
+        //return $recordsSet;
     }
 }
 
@@ -72,38 +78,37 @@ class accounts extends collection {
 
 
 class account {}
-//class todo {}
 
 $records = accounts::findAll();
 //print_r($records);
-
 //echo "<br>".$records;
 
 //--------------------------
 $html = '<table border = 1><tbody>';
     // header row
-    /*$html .= '<tr>';
+  /* $html .= '<tr>';
     foreach($records as $key=>$value){
-            $html .= '<th>' . htmlspecialchars($key) . '</th>';
+            $html .= '<th>' . htmlspecialchars($value) . '</th>';
         }
 
     $html .= '</tr>';*/
 
     // data rows
+
+       $i = 0;
     foreach( $records as $key=>$value){
-        
+                     
         $html .= '<tr>';
+        
         foreach($value as $key2=>$value2){
-            $html .= '<td>' . htmlspecialchars($value2) . '</td>';
+            $html .= '<td>' . htmlspecialchars($value2) . '<br></td>';
         }
         $html .= '</tr>';
+      
+      $i++;
     }
 
-    // finish table and return it
-
     $html .= '</tbody></table>';
-
-    print_r($html);
-    //return $html;
-
-//-----------------------
+    
+    echo "The number of records -- ".$i. "<br>";
+    echo "<br>".$html."<br>"; 
