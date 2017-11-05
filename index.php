@@ -36,7 +36,7 @@ class Connection
              
               $this->html .= '<h3>***PDO Practice Assignment***</h3>';
               $this->html .= 'Copyright @ Himanshu Hunge hh292<hr>';
-              $this->html .= '<h4>1)Database Connection Successfully Done On <b><i>"'.CONNECTION.'"</i></b>  Server.</h4><hr>';
+              $this->html .= '<h4>1)Database Connection Successfully Done On <b><i>"'.CONNECTION.'"</i></b>  Server.</h4><hr><br>';
               print_r($this->html);
          
             }
