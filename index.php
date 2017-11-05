@@ -42,7 +42,7 @@ class Connection
             }
         catch (PDOException $error) {
             //Output error - would normally log this to error file rather than output to user.
-            echo "Connection Error: " . $error->getMessage();
+            echo "Connection Error: " . $error->getMessage()."<br>";
         }
 
     }
