@@ -18,7 +18,7 @@ class Connection
 {
 
     //variable to hold connection object.
-    protected static $db;
+    protected static $dbh;
     protected $html;
 
     //private construct - class cannot be instatiated externally.
@@ -31,8 +31,8 @@ class Connection
 
 
             // assign PDO object to db variable
-              self::$db = new PDO( 'mysql:host=' . CONNECTION .';dbname=' . DATABASE, USERNAME, PASSWORD );
-              self::$db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
+              self::$dbh = new PDO( 'mysql:host=' . CONNECTION .';dbname=' . DATABASE, USERNAME, PASSWORD );
+              self::$dbh->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
              
               $this->html .= '<h3>PDO Practice Assignment</h3>';
               $this->html .= 'Copyright @ Himanshu Hunge hh292<hr>';
@@ -48,16 +48,16 @@ class Connection
     }
 
     // get connection function. Static method - accessible without instantiation
-    public static function getConnection() {
+    public static function getConn() {
 
         //Guarantees single instance, if no connection object exists then create one.
-        if (!self::$db) {
+        if (!self::$dbh) {
             //new connection object.
             new Connection();
         }
 
         //return connection.
-        return self::$db;
+        return self::$dbh;
     }
 }
 
@@ -69,16 +69,16 @@ class collection
     static public function findAll() 
     {
 
-        $db = Connection::getConnection();
-        $tableName = get_called_class();
+        $dbh = Connection::getConn();
+        $t_Name = get_called_class();
         $id = '6';
-        $sql = 'SELECT * FROM '. $tableName . ' WHERE id < ' . $id;
-        $statement = $db->prepare($sql);
-        $statement->execute();
+        $sql = 'SELECT * FROM '. $t_Name . ' WHERE id < ' . $id;
+        $st = $dbh->prepare($sql);
+        $st->execute();
         $class = static::$modelName;
-        $statement->setFetchMode(PDO::FETCH_CLASS, $class);
+        $st->setFetchMode(PDO::FETCH_CLASS, $class);
          
-        $recordsSet =  $statement->fetchAll();
+        $recordsSet =  $st->fetchAll();
        
         return $recordsSet;
     }
@@ -97,17 +97,18 @@ $records = accounts::findAll();
 $html = '<table border = 6><tbody>';
 
   // Displaying Header Row ...... hh292
+  
   $html .= '<tr>';
-    foreach($records[0] as $key=>$value){
+    foreach($records[0] as $key=>$value)
+        {
             $html .= '<th>' . htmlspecialchars($key) . '</th>';
         }
-
+       
     $html .= '</tr>';
 
     // Displayng Data Rows .......hh292
-
+    
     $i = 0;
-
     foreach($records as $key=>$value)
     {
         $html .= '<tr>';
