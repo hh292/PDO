@@ -1,7 +1,7 @@
 <?php
 
 /* **********************************WSD PHP PDO Practice Assignment"********************************
-**********************************Created By: Himanshu Hunge UCID: hh292 *********************************** 
+***********************************Created By: Himanshu Hunge UCID: hh292 *********************************** 
 ********************************** New Jersey Institute Of Technology ************************************** */
 
 
@@ -34,7 +34,7 @@ class Connection
               self::$dbh = new PDO( 'mysql:host=' . CONNECTION .';dbname=' . DATABASE, USERNAME, PASSWORD );
               self::$dbh->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION );
              
-              $this->html .= '<h3>PDO Practice Assignment</h3>';
+              $this->html .= '<h3>***PDO Practice Assignment***</h3>';
               $this->html .= 'Copyright @ Himanshu Hunge hh292<hr>';
               $this->html .= '<h4>1)Database Connection Successfully Done On <b><i>"'.CONNECTION.'"</i></b>  Server.</h4><hr>';
               print_r($this->html);
